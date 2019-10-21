@@ -20,7 +20,7 @@
     </div>
     <div id="chatCont" class="chatCont" :style='{"display":(chatContDivIsActive ? "None":"block")}'>
       <div class="bot_profile" :style='{"display":(chatContDivIsActive ? "None":"block")}'>
-        <img src="https://cdn1.iconfinder.com/data/icons/game-design-butterscotch-vol-2/256/Sprite-512.png" class="bot_p_img">
+        <img src="../assets/img/header_chatbot_box.png" class="bot_p_img">
         <div class="close" @click="toggleClass()">
           cerrar
           <i class="fa fa-times" aria-hidden="true" />
@@ -47,11 +47,11 @@
         @keyup.enter="sendText(text)"
       />
     </div>
-    <div class="profile_div" :style='{"display":(!profileDivIsActive?"block":"None")}' @click="toggleClass()">
+    <div class="profile_div" :style='{"display":(!profileDivIsActive?"block":"None")}'>
       <div class="row">
         <div class="col-hgt">
           <div class="chat-txt">
-            <font-awesome-icon icon="comments" style="font-size: 24px;"></font-awesome-icon>
+            <i class="fas fa-comments" style="font-size: 24px;"></i>
           </div>
         </div>
       </div>
