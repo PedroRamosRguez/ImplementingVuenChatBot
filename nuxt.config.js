@@ -12,7 +12,9 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css'},
+      
     ]
   },
   /*
@@ -43,7 +45,16 @@ module.exports = {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // ['nuxt-fontawesome', {
+    //   component: 'fa',
+    //   imports: [
+    //     {
+    //       set: '@fortawesome/free-solid-svg-icons',
+    //       icons: ['fas'],
+    //     }
+    //   ]
+    // }]
   ],
   /*
   ** Axios module configuration

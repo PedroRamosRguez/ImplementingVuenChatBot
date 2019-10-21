@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <div>
-      Simple div
-    </div>
+  <div class="main">
+    <a href="https://github.com/PedroRamosRguez/tallerJsDay2019">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="../assets/img/star.svg">
+    </a>
     <chatBot />
   </div>
 </template>
