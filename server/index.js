@@ -1,9 +1,9 @@
 const express = require('express')
 const consola = require('consola')
-const bodyparser = require('body-parser');
+const bodyparser = require('body-parser')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
-app.use(bodyparser.json());
+app.use(bodyparser.json())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
@@ -14,7 +14,7 @@ async function start () {
   const nuxt = new Nuxt(config)
 
   const { host, port } = nuxt.options.server
-
+  const chatbot = require('../chatbot/routes')
   // Build only in dev mode
   if (config.dev) {
     const builder = new Builder(nuxt)
@@ -22,23 +22,9 @@ async function start () {
   } else {
     await nuxt.ready()
   }
-
+  app.use(chatbot)
   // Give nuxt middleware to express
   app.use(nuxt.render)
-  
-  //Chatbot Endpoint
-  app.post('/chatbot', (req, res) => {
-    const data = req.body;
-    const response = {
-      fulfillmentText: "Your webhook works fine !",
-    }
-	  res.json(response);
-  });
-
-  //Status Endpoint
-  app.get('/status', (req, res) => {
-    res.send('OK')
-  })
 
   // Listen the server
   app.listen(port, host)

@@ -14,7 +14,7 @@
       <div class="footer text-center">
         <span class="foo-txt">
           <br>
-          Done <i class="fas fa-heart" />for JSDayCan2019
+          Done with <i class="fas fa-heart" /> for JSDayCan2019
         </span>
       </div>
     </div>
@@ -25,9 +25,9 @@
           cerrar
           <i class="fa fa-times" aria-hidden="true" />
         </div>
-      </div><!--bot_profile end-->
+      </div>
       <div id="result_div" class="resultDiv">
-        <!-- <p :class="text.class" v-for="text in chatBox"> {{ text.value }}</p><div class="clearfix"></div>  -->
+        <p :class="text.class" v-for="text in messages"> {{ text.value }}</p><div class="clearfix"></div> 
       </div>
       <div id="chat-div" class="chatForm">
         <div class="spinner">
@@ -36,7 +36,6 @@
           <div class="bounce3" />
         </div>
       </div>
-      <!-- Añadir la funcion para enviar al servidor... -->
       <input
         id="chat-input"
         v-model="text"
@@ -47,7 +46,7 @@
         @keyup.enter="sendText(text)"
       />
     </div>
-    <div class="profile_div" :style='{"display":(!profileDivIsActive?"block":"None")}'>
+    <div class="profile_div" :style='{"display":(!profileDivIsActive?"block":"None")}' @click="toggleClass()">
       <div class="row">
         <div class="col-hgt">
           <div class="chat-txt">
@@ -58,6 +57,81 @@
     </div>
   </div>
 </template>
+<script>
+const axios = require('axios')
+const utilities = require('../env/env')
+export default {
+  name: 'chatBot',
+  data () {
+    return {
+      text: '',
+      messages: [],
+      profileDivIsActive: false,
+      chatContDivIsActive: true,
+      botProfileDivIsActive: true,
+      chatFormDivIsActive: false,
+      sessionId: ''
+    }
+  },
+
+  methods: {
+    createHash (length) {
+      const alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
+      for (let i = 0; i < length; i++) {
+        this.sessionId += alphabet.charAt(Math.floor(Math.random() * alphabet.length))
+      }
+      this.sessionId += '-'
+    },
+    createSession () {
+      this.createHash(8)
+      this.createHash(4)
+      this.createHash(4)
+      this.createHash(4)
+      this.createHash(12)
+    },
+    toggleClass () {
+      this.profileDivIsActive = this.profileDivIsActive ? false : true 
+      this.chatContDivIsActive = this.chatContDivIsActive ? false : true
+      this.botProfileDivIsActive = this.profileDivIsActive ? false : true
+      this.chatFormDivIsActive = this.chatFormDivIsActive ? false : true
+    },
+    sendText (text) {
+      if (this.text !== '' || this.text.trim !== '') {
+        const URL = `${utilities.DIALOG_FLOW_API_ROOT_URL}/projects/${utilities.PROJECT_ID}/agent/sessions/${this.sessionId}:detectIntent`
+        const config = {
+          headers: {
+            'Authorization': 'Bearer ' + utilities.DIALOG_FLOW_TOKEN,
+            'Content-Type': 'application/json'
+          }
+        }
+
+        const bodyParameters = {
+          "queryInput": { "text": { "text": text, "languageCode": 'es' } }
+        }
+        const request = axios.post(
+          URL,
+          bodyParameters,
+          config
+        ).then((data) => {
+          if (data.status === 200) {
+            this.messages.push({ class: 'userEnteredText', value: this.text })
+            this.text = ''
+            this.messages.push({ class: 'botResult', value: data.data.webhookStatus.message })
+          }
+        })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+    }
+  },
+    created: function() {
+    this.createSession()
+    this.sessionId = this.sessionId.slice(0, -1)
+  },
+}
+</script>
+
 <style scoped>
 body {
   font-family: 'Open Sans', sans-serif;
@@ -189,7 +263,7 @@ a:focus {
   border-left: 1px solid #dcdcdc;
 }
 .resultDiv .botResult {
-  background: #fff;
+  background: rgb(101, 231, 116);
   color: #000;
   border-radius: 3px;
   padding: 12px;
@@ -211,7 +285,7 @@ a:focus {
   height: 0;
   border-top: 0px solid rgba(0, 0, 0, 0);
   border-bottom: 15px solid rgba(0, 0, 0, 0);
-  border-right: 15px solid #fff;
+  border-right: 15px solid rgb(101, 231, 116);;
   left: -15px;
   margin-top: -12px;
 }
