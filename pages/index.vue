@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <a href="https://github.com/PedroRamosRguez/tallerJsDay2019">
+    <a href="https://github.com/PedroRamosRguez/ImplementingVuenChatBot">
       <img style="position: absolute; top: 0; right: 0; border: 0;" src="../assets/img/star.svg">
     </a>
     <chatBot />
