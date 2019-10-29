@@ -133,7 +133,7 @@ With this configuration, we will can to access the server endpoints.
 * Create an agent. Put spanish language please.
 * After that, press tool button and go into **Export and Import section**, select **restore from zip** and upload the zip file that you will find in the [creating_client_functions branch](https://github.com/PedroRamosRguez/ImplementingVuenChatBot/tree/creating_client_functions).
 
-* Step 8. Using Ngrok and config fulfillment agent option:
+# Step 8. Using Ngrok and config fulfillment agent option:
 
 * Open ngrok console.
 * Type ngrok http 3000.
@@ -141,6 +141,8 @@ With this configuration, we will can to access the server endpoints.
 * Go into fulfillment options in Dialogflow 
 * Toogle webhook option to enable
 * Paste the ngrok https link into url options with /chatbot
+
+After configurate **Dialogflow**, lets create some intents and lets add some training phrases. Then, put an action name and finally in the fulfillment option, lets toogle in the *enable web hook call for this intent*.
 
 # Step 9. Using Google sdk console, create service account, create env files and get token from app
 
@@ -177,6 +179,7 @@ module.exports = { FULFILLMENT, DIALOG_FLOW_TOKEN, DIALOG_FLOW_API_ROOT_URL, PRO
 
 # Step 10. Test everything
 
+Before to test our chatbot, lets create some responses in our server.
 Finally, if everything is ok, we will have our Vue chatbot component created and linked with our Dialogflow agent
 
 I hope you liked this workshop ✨ learned a lot, and hope to see you in the next one 👋.
