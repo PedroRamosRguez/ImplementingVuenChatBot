@@ -2,6 +2,7 @@ const express = require('express')
 const consola = require('consola')
 const bodyparser = require('body-parser')
 const { Nuxt, Builder } = require('nuxt')
+
 const app = express()
 app.use(bodyparser.json())
 

@@ -116,7 +116,7 @@ export default {
           if (data.status === 200) {
             this.messages.push({ class: 'userEnteredText', value: this.text })
             this.text = ''
-            this.messages.push({ class: 'botResult', value: data.data.webhookStatus.message })
+            this.messages.push({ class: 'botResult', value: data.data.queryResult.fulfillmentText })
           }
         })
           .catch((error) => {
