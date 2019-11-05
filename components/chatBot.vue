@@ -47,7 +47,7 @@
       />
     </div>
     <div class="profile_div" :style='{"display":(!profileDivIsActive?"block":"None")}' @click="toggleClass()">
-      <div class="row">
+      <div id="chatBotMessage" class="row" :style='{"visibility":(!chatBotMessageIcon ?"hidden":"visible")}'>
         <div class="col-hgt">
           <div class="chat-txt">
             <i class="fas fa-comments" style="font-size: 24px;"></i>
@@ -70,6 +70,7 @@ export default {
       chatContDivIsActive: true,
       botProfileDivIsActive: true,
       chatFormDivIsActive: false,
+      chatBotMessageIcon: false,
       sessionId: ''
     }
   },
@@ -123,11 +124,16 @@ export default {
             console.log(error)
           })
       }
+    },
+    showChatBot () {
+      console.log('llamo a showchatbot')
+      this.chatBotMessageIcon = true;
     }
   },
     created: function() {
     this.createSession()
     this.sessionId = this.sessionId.slice(0, -1)
+    setTimeout(this.showChatBot, 5000)
   },
 }
 </script>
@@ -139,6 +145,7 @@ body {
   line-height: 1.42857143;
   color: #333;
 }
+
 {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -196,7 +203,7 @@ a:focus {
 .fa-heart {
   color: #fb2323;
 }
-/* MyBot */
+
 .center .chatCont,
 .center .profile_div {
   left: 0;
@@ -218,7 +225,6 @@ a:focus {
   border-top-left-radius: 3px;
   z-index: 10000;
   display: none;
-  /* opacity: 0.4; */
 }
 .close {
   position: absolute;
@@ -344,9 +350,8 @@ a:focus {
   border-radius: 50px;
   background: #FF9800;
   float:right;
-  /* width:100px; */
 }
-/* Spinner start */
+
 .spinner {
   background: #9C27B0;
   width: 70px;
@@ -401,8 +406,7 @@ a:focus {
     transform: scale(1.0);
   }
 }
-/* Spinner End */
-/* Suggestions */
+
 .suggestion {
   background: #fff;
   color: #000;
@@ -450,7 +454,7 @@ a:focus {
 .suggestion span:last-child {
   margin-bottom: 0;
 }
-/* Suggestions end */
+
 .resultDiv {
   padding: 35px 20px 30px 20px;
   overflow-y: auto;
@@ -471,5 +475,4 @@ a:focus {
     height: 70% !important;
   }
 }
-/* MyBot end */
 </style>
