@@ -36,15 +36,20 @@
           <div class="bounce3" />
         </div>
       </div>
-      <input
-        id="chat-input"
-        v-model="text"
-        type="text"
-        class="form-control bot-txt"
-        autocomplete="off"
-        placeholder="Try typing here"
-        @keyup.enter="sendText(text)"
-      />
+      <div class="input-group mb-3">
+        <input
+          id="chat-input"
+          v-model="text"
+          type="text"
+          class="form-control bot-txt"
+          autocomplete="off"
+          placeholder="Try typing here"
+          @keyup.enter="sendText(text)"
+        />
+        <div class="input-group-append">
+          <button class="input-group-text" style="background-color:#FF9800;"><i class="fas fa-microphone" @click="speechToText()"></i></button>
+        </div>
+      </div>
     </div>
     <div class="profile_div" :style='{"display":(!profileDivIsActive?"block":"None")}' @click="toggleClass()">
       <div id="chatBotMessage" class="row" :style='{"visibility":(!chatBotMessageIcon ?"hidden":"visible")}'>
@@ -65,7 +70,7 @@ export default {
   data () {
     return {
       text: '',
-      messages: [],
+      messages: [{ class: 'botResult', value:'Hello, Im a chatbot created with love by Pedro Ramos, what can i help you in'}],
       profileDivIsActive: false,
       chatContDivIsActive: true,
       botProfileDivIsActive: true,
@@ -125,8 +130,29 @@ export default {
           })
       }
     },
+    speechToText () {
+      window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+      let finalTranscript = '';
+      let recognition = new window.SpeechRecognition();
+      recognition.lang = 'es-Es'
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 10;
+      recognition.onresult = (event) => {
+        let interimTranscript = '';
+        for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
+          let transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+        this.text = finalTranscript
+        this.sendText(this.text)
+      }
+      recognition.start()
+    },
     showChatBot () {
-      console.log('llamo a showchatbot')
       this.chatBotMessageIcon = true;
     }
   },
