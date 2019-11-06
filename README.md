@@ -39,12 +39,26 @@ The different tools that we need:
     * [For MacOs](https://cloud.google.com/sdk/docs/quickstart-macos?hl=es)
     * [For Debian Ubuntu](https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu?hl=es)
 
-# Step 2. Clone the repository
+# Step 2. Fork and clone or Clone the repository
+
+You have 2 options for this step. Only clone the repository or fork the repository and later clone from your profile.
+
+## Fork and clone
+
+Fork the repository clicking on the Fork button on the top right.
 
 Clone this repository in your locale machine using this command:
 ```sh
 git clone https://github.com/[YOUR-USERNAME]/ImplementingVuenChatBot
 ```
+
+
+## OR clone the repository
+
+```sh
+git clone https://github.com/PedroRamosRguez/ImplementingVuenChatBot
+```
+
 
 # Step 3. Install the dependencies and run the server
 
